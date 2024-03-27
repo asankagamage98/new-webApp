@@ -13,21 +13,21 @@ export default function page({news}) {
   </div>;
 }
 
-export async function getServerSideProps({ params }) {
-  const { id } = params;
+// export async function getServerSideProps({ params }) {
+//   const { id } = params;
 
-  try {
-    const res = await axios.get(`http://localhost:3020/api/news/${id}`);
-    const news = res.data;
-    return {
-      props: { news },
-    };
-  } catch (error) {
-    console.error("Error fetching news:", error);
-    return {
-      props: {
-        news: null, // or handle error appropriately
-      },
-    };
-  }
-}
+//   try {
+//     const res = await axios.get(`http://localhost:3020/api/news/${id}`);
+//     const news = res.data;
+//     return {
+//       props: { news },
+//     };
+//   } catch (error) {
+//     console.error("Error fetching news:", error);
+//     return {
+//       props: {
+//         news: null, // or handle error appropriately
+//       },
+//     };
+//   }
+// }
