@@ -3,8 +3,10 @@ import LoginPage from '../components/login/LoginPage'
 
 export default function page() {
   return (
-    <>
-    <LoginPage />
-    </>
+    <div className="flex min-h-screen flex-col items-center justify-between p-24">
+       <LoginPage />
+    </div>
+   
+    
   )
 }

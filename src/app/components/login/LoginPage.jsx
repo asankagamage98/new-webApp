@@ -29,21 +29,18 @@ const handleLogin =(e) =>{
    
 }
 
-const submit = (e) => {
+const submit = async (e) => {
   e.preventDefault();
-  axios.post(`http://localhost:3020/api/user/login`, login)
-    .then(async (res) => {
-      alert("Success!");
-      const data = await res.data;
-      // console.log(data);
-      dispatch(setUser(data.user));
-      console.log(res.data);
-      router.push("/home");
-    })
-    .catch(err => {
-      alert("Error!");
-      console.error(err); // Log the error
-    });
+  try {
+    const res = await axios.post('http://localhost:3020/api/user/login', login);
+    const { user, token } = res.data; // Assuming response contains user data and token
+    dispatch(setUser({ user, token }));
+    console.log('Login successful:',setUser);
+    router.push('/');
+  } catch (error) {
+    alert('Error!');
+    console.error(error); // Log the error
+  }
 };
 
 
