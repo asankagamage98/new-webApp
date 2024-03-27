@@ -56,7 +56,7 @@ export default function NavBar() {
             </Dropdown>
             <Navbar.Toggle />
           </div>
-          <Navbar.Collapse>
+          <Navbar.Collapse className=''>
             <Navbar.Link href="#" onClick={(e) => router.push('/news')} active>
               Home
             </Navbar.Link>

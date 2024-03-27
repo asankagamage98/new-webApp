@@ -109,7 +109,7 @@ export default function NewsForm() {
     <>
       <div className="w-full mb-3 ">
         <div><h3 className="text-2xl font-bold">Publish a news article</h3></div>
-        <div className="mb-2 block">
+        <div className="mb-2 block mt-5">
           <Label htmlFor="category" value="Select articale category" />
         </div>
         <Select
@@ -137,9 +137,12 @@ export default function NewsForm() {
           className="w-full m-0 h-10"
         />
       </div>
-
-      <div className="w-full ">
-        <div ref={quillRef} style={{ height: 300 }} className="mb-5" />
+      <div className="mb-2 block">
+          <Label htmlFor="small" className="" value="Content" />
+     
+        <div className="w-full mt-2">
+          <div ref={quillRef} style={{ height: 300 }} className="mb-5" />
+        </div>
       </div>
       <div className="flex justify-end">
         <Button
