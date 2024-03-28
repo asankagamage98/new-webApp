@@ -12,12 +12,11 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 
 export default function page() {
   // Retrieve user and token from Redux store
-
   const token = useSelector((state) => state.login.token);
   const user = useSelector((state) => state.login.user);
   const { id } = useParams();
 
-  //get env
+  //get env data
   const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
 
   // Initialize form state
@@ -99,7 +98,7 @@ export default function page() {
         console.error(err);
       });
   };
-
+  // Define Quill modules
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike"],
@@ -119,15 +118,15 @@ export default function page() {
       matchVisual: false,
     },
   };
-
+  // Define placeholder text for the Quill editor
   const placeholder = "Write your blog content here...";
-
+  // Initialize Quill editor
   const { quill, quillRef } = useQuill({
     modules,
     placeholder,
   });
 
-  //content of the Quill editor
+  // update form state with Quill editor content
   useEffect(() => {
     if (quill) {
       const handler = () => {
@@ -142,7 +141,7 @@ export default function page() {
 
     getNews();
   }, [quill, form]);
-
+  // update Quill editor content when form state changes
   useEffect(() => {
     if (quill && form.description) {
       quill.root.innerHTML = form.description;

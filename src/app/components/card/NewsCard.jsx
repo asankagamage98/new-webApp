@@ -3,17 +3,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import renderHTML from "react-render-html";
 import { useRouter } from "next/navigation";
 import striptags from "striptags";
 import { Avatar } from "flowbite-react";
 
 export default function NewsCard() {
+  // State to store the news data
   const [news, setNews] = useState([]);
 
-//get env
+  // Environment variable for the news API endpoint
   const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
-
+  // fetch news data from the API
   const fetchNews = () => {
     axios
       .get(`${NEWS_API}`)
@@ -24,7 +24,7 @@ export default function NewsCard() {
         console.error(err);
       });
   };
-
+  // Fetch news data
   useEffect(() => {
     fetchNews();
   }, []);
@@ -44,14 +44,14 @@ export default function NewsCard() {
     </>
   );
 }
-
+// rendering individual news cards
 const SingleNewsCard = ({ news }) => {
   const router = useRouter();
-
+  // get the  article description
   const getArticleString = () => {
     return striptags(news?.description);
   };
-
+  // Function to get the initials for the author's avatar
   const getAvatarLetters = (str) => {
     // Split the string into words
     const words = str.trim().split(/\s+/);
@@ -67,7 +67,7 @@ const SingleNewsCard = ({ news }) => {
 
     return initials;
   };
-
+  // get the humanized date
   const getHumanizedDate = (date) =>
     moment.duration(moment().diff(moment(date))).asDays() < 1
       ? moment.duration(moment().diff(moment(date))).humanize()

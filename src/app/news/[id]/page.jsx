@@ -8,29 +8,30 @@ import { HiOutlineArrowLeft, HiPencil, HiTrash } from "react-icons/hi";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 
-//get env
+// Retrieve news API URL from environment variables
 const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
 
 export default function page() {
+  // Initialize state variables
   const { id } = useParams();
   const [news, setNews] = useState({});
   const [date, setDate] = useState();
 
   const router = useRouter();
-
+  // fetch single news item
   function fetchSingleNews() {
     axios
       .get(`${NEWS_API}${id}`)
       .then((res) => setNews(res.data))
       .catch((err) => console.error(err));
   }
-
+  // format and set the date
   function getDateTime() {
     setDate(moment(news?.createdAt).format("MMMM Do YYYY, h:mm:ss a"));
   }
-
+  // trigger getDateTime when news.createdAt changes
   useEffect(() => getDateTime(), [news?.createdAt]);
-
+  // Effect hook to fetch news data when id changes
   useEffect(() => {
     fetchSingleNews();
   }, [id]);
@@ -65,6 +66,7 @@ export default function page() {
 }
 
 const EditAndDelete = ({ newsId }) => {
+  //get token from redux store
   const token = useSelector((state) => state.login.token);
   const router = useRouter();
 
@@ -112,8 +114,6 @@ const EditAndDelete = ({ newsId }) => {
               });
           } else {
             console.error("User token not found.");
-            // Handle case where token is missing
-            // You can redirect to login page or show an error message
           }
         } catch (error) {
           // Handle errors

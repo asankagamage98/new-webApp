@@ -6,27 +6,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../redux/features/Auth/loginSlice";
 
 export default function NavBar() {
+  // Initialize dispatch and router hooks
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.login.user);
-
   const router = useRouter();
 
+  // Retrieve user data from Redux store
+  const user = useSelector((state) => state.login.user);
+
+  // handle logout
   const handleLogOut = async (e) => {
     try {
-      console.log("Logging out...");
-
       // Dispatch an action to clear user data in Redux store
       dispatch(clearUser());
-
-      console.log("User data cleared.");
-      console.log("Redirected to the home page.");
+      // router.push("/auth");
     } catch (error) {
       console.error("Logout error:", error);
     }
   };
 
   return (
-    <Navbar fluid className="bg-black">
+    <Navbar fluid className="bg-slate-100 text-black">
       <Navbar.Brand href="https://flowbite-react.com">
         <img
           src="/news.svg"
@@ -36,11 +35,19 @@ export default function NavBar() {
         />
         <span
           onClick={(e) => router.push("/news")}
-          className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+          className="self-center whitespace-nowrap text-xl font-semibold "
         >
-          MY NEWS
+          TOP NEWS
         </span>
       </Navbar.Brand>
+      <Navbar.Collapse className="flex item-end">
+        <Navbar.Link href="#" onClick={(e) => router.push("/news")} active>
+          Home
+        </Navbar.Link>
+        <Navbar.Link href="#" onClick={(e) => router.push("/news/create")}>
+          create
+        </Navbar.Link>
+      </Navbar.Collapse>
       <div className="flex md:order-2">
         <Dropdown
           arrowIcon={false}
@@ -66,14 +73,6 @@ export default function NavBar() {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse className="">
-        <Navbar.Link href="#" onClick={(e) => router.push("/news")} active>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="#" onClick={(e) => router.push("/news/create")}>
-          create
-        </Navbar.Link>
-      </Navbar.Collapse>
     </Navbar>
   );
 }

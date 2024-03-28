@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-
+import Swal from "sweetalert2";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
 import { setUser } from "@/redux/features/Auth/loginSlice";
-import { Button } from "flowbite-react";
+import { Button, Label, TextInput } from "flowbite-react";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -36,54 +36,74 @@ function LoginPage() {
       const res = await axios.post(`${LOGIN_API}login`, login);
       const { user, token } = res.data;
       dispatch(setUser({ user, token }));
-      router.push("/news");
+
+      // Show success toast
+      Swal.fire({
+        icon: "success",
+        title: "Login Success",
+        text: "successfully logged..",
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        toast: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      }).then(() => {
+        // Redirect to news page after the user clicks "OK" on the success toast
+        router.push("/news");
+      });
     } catch (error) {
-      alert("Error!");
       console.error(error);
+      // Show error toast
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error updating news. Please try again later.",
+        confirmButtonText: "OK",
+      });
     }
   };
 
   return (
-    <main className="bg-white text-black w-full md:w-3/4 lg:w-1/3 max-w-lg mx-auto p-4 pb-4 md:p-6 lg:p-8 rounded-lg shadow-xl flex flex-col justify-center items-center">
-      <div className="mx-auto max-w-sm">
-        <form action="" onSubmit={submit}>
-          <div className="w-full font-bold text-3xl text-center">
-            <p className="">SIGN IN</p>
+    <>
+      <form action="" onSubmit={submit} className="lg:w-2/4 p-3">
+        <div className="w-full font-bold text-2xl  mx-auto">
+          <p className="">SIGN IN</p>
+        </div>
+        <div className="mt-3 form-control w-full mb-2">
+          <div className="mb-2 block">
+            <Label htmlFor="password" value="User Name" />
           </div>
-          <div className="mt-3 form-control w-full mb-2">
-            <label className="label">
-              <span className="label-text font-bold">User Name</span>
-            </label>
-            <input
-              onChange={handleLogin}
-              name="email"
-              type="email"
-              placeholder="Input user name (email)"
-              className=" mt-2 input text-black  w-full h-10 rounded-md"
-            />
+          <TextInput
+            onChange={handleLogin}
+            name="email"
+            type="email"
+            placeholder="Input user name (email)"
+            required
+          />
+        </div>
+        <div className="form-control w-full">
+          <div className="mb-2 block">
+            <Label htmlFor="password" value="Password" />
           </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text font-bold">Password</span>
-            </label>
-            <input
-              onChange={handleLogin}
-              name="password"
-              type="password"
-              placeholder="Input password"
-              className=" mt-2 input text-black  w-full h-10 rounded-md"
-            />
-          </div>
-          <div className="w-full mt-5 ">
-            <Button
-              type="submit"
-              className="w-full"
-              gradientMonochrome="success"
-            >
-              Login
-            </Button>
-          </div>
-        </form>
+
+          <TextInput
+            onChange={handleLogin}
+            name="password"
+            type="password"
+            placeholder="Input password"
+            required
+          />
+        </div>
+        <div className="w-full mt-5 ">
+          <Button type="submit" className="w-full" gradientMonochrome="success">
+            Login
+          </Button>
+        </div>
+
         <div className="w-full text-center mt-5">
           <Button
             onClick={registerbtn}
@@ -93,8 +113,8 @@ function LoginPage() {
             Register
           </Button>
         </div>
-      </div>
-    </main>
+      </form>
+    </>
   );
 }
 

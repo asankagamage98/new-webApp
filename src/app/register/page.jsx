@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 import { useRouter } from "next/navigation";
-import { Button } from "flowbite-react";
+import { Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -57,74 +57,71 @@ function page() {
   };
 
   return (
-    <div className="  h-screen bg-white text-black w-full md:w-3/4 lg:w-1/3 max-w-lg mx-auto p-4 pb-4 md:p-6 lg:p-8 rounded-lg shadow-xl flex flex-col justify-center items-center">
-      <div className="mx-auto max-w-xs">
-        <form action="" onSubmit={submit}>
-          <div className="w-full font-bold text-2xl text-center">
-            <p className="">SIGN UP</p>
+    <div className="  h-screen  text-black w-full  lg:w-2/3 mx-auto flex flex-col justify-center items-center">
+      <form action="" onSubmit={submit} className=" lg:w-2/4 p-3">
+        <div className="w-full font-bold text-2xl  mx-auto  ">
+          <p className="">SIGN UP</p>
+        </div>
+        <div className="mt-3 form-control w-full mb-2">
+          <div className="mb-2 block">
+            <Label htmlFor="name" value="name" />
           </div>
-          <div className="mt-3 form-control w-full mb-2">
-            <label className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input
-              onChange={handleFormChanges}
-              name="name"
-              type="text"
-              placeholder="Input user name"
-              required
-              className="font-normal mt-2 input input-bordered w-full h-8 rounded-md"
-            />
+          <TextInput
+            onChange={handleFormChanges}
+            name="name"
+            type="text"
+            placeholder="Input user name"
+            required
+          />
+        </div>
+        <div className="mt-3 form-control w-full mb-2">
+          <div className="mb-2 block">
+            <Label htmlFor="email" value="Gmail" />
           </div>
-          <div className="mt-3 form-control w-full mb-2">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              onChange={handleFormChanges}
-              name="email"
-              type="email"
-              placeholder="Input user email"
-              required
-              className="font-normal mt-2 input  input-bordered w-full h-8 rounded-md"
-            />
+
+          <TextInput
+            onChange={handleFormChanges}
+            name="email"
+            type="email"
+            required
+            placeholder="name@gmail.com"
+          />
+        </div>
+        <div className="form-control w-full mb-2">
+          <div className="mb-2 block">
+            <Label htmlFor="password" value="Password" />
           </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              onChange={handleFormChanges}
-              name="password"
-              type="password"
-              placeholder="Input password"
-              required
-              className="font-normal mt-2 input input-bordered w-full h-8 rounded-md"
-            />
+
+          <TextInput
+            onChange={handleFormChanges}
+            name="password"
+            type="password"
+            placeholder="Input password"
+            required
+          />
+        </div>
+        <div className="form-control w-full mb-2">
+          <div className="mb-2 block">
+            <Label htmlFor="ConformPassword" value="Conform Password" />
           </div>
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Conform Password</span>
-            </label>
-            <input
-              onChange={handleFormChanges}
-              name="confirmPassword"
-              type="password"
-              placeholder="enter conform passowrd"
-              required
-              className="font-normal mt-2 input  input-bordered w-full h-8 rounded-md"
-            />
-          </div>
-          <div className="w-full mt-5 ">
-            <Button
-              type="submit"
-              className="w-full"
-              gradientDuoTone="purpleToBlue"
-            >
-              Register
-            </Button>
-          </div>
-        </form>
+          <TextInput
+            onChange={handleFormChanges}
+            name="confirmPassword"
+            type="password"
+            placeholder="enter conform passowrd"
+            required
+          />
+        </div>
+        <div className="w-full mt-5 ">
+          <Button
+            type="submit"
+            className="w-full"
+            gradientDuoTone="purpleToBlue"
+          >
+            Register
+          </Button>
+        </div>
+
         <div className="w-full text-center mt-5">
           <Button
             type=""
@@ -135,7 +132,7 @@ function page() {
             Login
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
