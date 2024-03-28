@@ -4,20 +4,26 @@ import React, { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { Button } from "flowbite-react";
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function page() {
 
 const router = useRouter();
 
+  //get env
+const USER_API = process.env.NEXT_PUBLIC_USER_API;
+
 const login =() => {
-    router.push("/")
+    router.push("/auth")
 }
 // ----------------------------------
 const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
-    password_confirmation: '',
+    confirmPassword: '',
+  
   });
 
   const handleFormChanges = (e) => {
@@ -25,43 +31,33 @@ const [form, setForm] = useState({
   };
 
 
-
-  
- const submit = async (e) => {
-  e.preventDefault();
-
-  try {
-    const formData = new FormData();
-
-    // Append form data fields
-    formData.append('name', form.name);
-    formData.append('email', form.email);
-    formData.append('password', form.password);
-    formData.append('password_confirmation', form.password_confirmation);
-
-    const response = await fetch('http://127.0.0.1:8000/api/register', {
-      method: 'POST',
-      headers: {
-        // Omit 'Content-Type' to let the browser set it automatically for FormData
-      },
-      body: formData,
-    });
-
-    console.log('Response Status:', response.status);
-
-    if (response.ok) {
-      const data = await response.json();
-      alert('Success!');
-      router.push('/');
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(`${USER_API}create`, form);
+      const data = res.data;
       console.log(data);
-    } else {
-      throw new Error('Network response was not ok');
+      // Show success toast
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "News created successfully!",
+      }).then((result) => {
+        // Redirect to the login page after the user clicks "OK" on the success toast
+        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+          router.push("/auth");
+        }
+      });
+    } catch (error) {
+      // Show error toast
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to create news. Please try again later.",
+      });
+      console.error("Error creating news:", error);
     }
-  } catch (error) {
-    alert('Error!');
-    console.error('Error:', error);
-  }
-};
+  };
 
   return (
     <div className="  h-screen bg-white text-black w-full md:w-3/4 lg:w-1/3 max-w-lg mx-auto p-4 pb-4 md:p-6 lg:p-8 rounded-lg shadow-xl flex flex-col justify-center items-center">
@@ -72,25 +68,25 @@ const [form, setForm] = useState({
             <label className="label">
             <span className="label-text">Name</span>
             </label>
-            <input onChange={handleFormChanges}  name="name" type="text" placeholder="Input user name" className="font-normal mt-2 input text-white input-bordered w-full h-8 rounded-md" />
+            <input onChange={handleFormChanges}  name="name" type="text" placeholder="Input user name" required className="font-normal mt-2 input input-bordered w-full h-8 rounded-md" />
         </div>
         <div className="mt-3 form-control w-full mb-2">
             <label className="label">
             <span className="label-text">Email</span>
             </label>
-            <input onChange={handleFormChanges}  name="email" type="email" placeholder="Input user email" className="font-normal mt-2 input text-white input-bordered w-full h-8 rounded-md" />
+            <input onChange={handleFormChanges}  name="email" type="email" placeholder="Input user email" required className="font-normal mt-2 input  input-bordered w-full h-8 rounded-md" />
         </div>
         <div className="form-control w-full">
             <label className="label">
             <span className="label-text">Password</span>
             </label>
-            <input onChange={handleFormChanges} name="password" type="password" placeholder="Input password" className="font-normal mt-2 input text-white input-bordered w-full h-8 rounded-md" />
+            <input onChange={handleFormChanges} name="password" type="password" placeholder="Input password" required className="font-normal mt-2 input input-bordered w-full h-8 rounded-md" />
         </div>
         <div className="form-control w-full">
             <label className="label">
             <span className="label-text">Conform Password</span>
             </label>
-            <input onChange={handleFormChanges} name="password_confirmation" type="password" placeholder="enter conform passowrd" className="font-normal mt-2 input text-white input-bordered w-full h-8 rounded-md" />
+            <input onChange={handleFormChanges} name="confirmPassword" type="password" placeholder="enter conform passowrd" required className="font-normal mt-2 input  input-bordered w-full h-8 rounded-md" />
         </div>
         <div className='w-full mt-5 '>
             
