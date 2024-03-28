@@ -31,61 +31,59 @@ export default function PublishNews() {
   };
 
   // Handle form submission
-const onSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    // Check if token exists
-    if (token) {
-      // Set the authorization header with the token
-      const auth = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Check if token exists
+      if (token) {
+        // Set the authorization header with the token
+        const auth = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
 
-      // Make the POST request to publish news
-      const response = await axios.post(`${NEWS_API}`, form, auth);
+        // Make the POST request to publish news
+        const response = await axios.post(`${NEWS_API}`, form, auth);
 
-      // Handle successful response
-      const data = response.data;
+        // Handle successful response
+        const data = response.data;
 
-      // Show success toast
+        // Show success toast
+        Swal.fire({
+          icon: "success",
+          title: "News published successfully!",
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        // Navigate to the news feed page after 3 seconds
+        setTimeout(() => {
+          router.push("/news");
+        }, 2000);
+      } else {
+        console.error("User token not found.");
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error publishing news:", error);
+
+      // Show error toast
       Swal.fire({
-        icon: "success",
-        title: "News published successfully!",
-        position: "top-end",
-        showConfirmButton: false,
-        timer:2000,
-        timerProgressBar: true,
-        toast: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
+        icon: "error",
+        title: "Error",
+        text: "Error publishing news. Please try again later.",
+        confirmButtonText: "OK",
       });
-
-      // Navigate to the news feed page after 3 seconds
-      setTimeout(() => {
-        router.push("/news");
-      }, 2000);
-
-    } else {
-      console.error("User token not found.");
     }
-  } catch (error) {
-    // Handle errors
-    console.error("Error publishing news:", error);
-
-    // Show error toast
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Error publishing news. Please try again later.",
-      confirmButtonText: "OK",
-    });
-  }
-};
-
+  };
 
   const modules = {
     toolbar: [
