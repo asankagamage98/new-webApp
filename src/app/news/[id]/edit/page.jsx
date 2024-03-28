@@ -6,7 +6,8 @@ import "quill/dist/quill.snow.css";
 import { TextInput, Button, Label, Select } from "flowbite-react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function page() {
    // Retrieve user and token from Redux store
@@ -14,6 +15,7 @@ export default function page() {
    const token = useSelector((state) => state.login.token);
    const user = useSelector((state) => state.login.user);
    const { id } = useParams();
+
    // Initialize form state
    const [form, setForm] = useState({
      title: "",
@@ -28,41 +30,65 @@ export default function page() {
      setForm({ ...form, [e.target.name]: e.target.value });
    };
  
+  const router = useRouter();
+
    // Handle form submission
-   const onSubmit = async (e) => {
-     e.preventDefault();
-     try {
-       // Check if token exists
-       if (token) {
-         // Set the authorization header with the token
-         const auth = {
-           headers: {
-             Authorization: `Bearer ${token}`,
-           },
-         };
- 
-         // Make the POST request to publish news
-         const response = await axios.put(
-           `http://localhost:3020/api/news/${id}`,
-           form,
-           auth
-         );
- 
-         // Handle successful response
-         const data = response.data;
-         console.log(data);
-         alert("News updated successfully!");
-       } else {
-         console.error("User token not found.");
-        
-       }
-     } catch (error) {
-       // Handle errors
-       console.error("Error updating news:", error);
-       alert("Error publishing news. Please try again later.");
-     }
-   };
- 
+const onSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Check if token exists
+    if (token) {
+      // Set the authorization header with the token
+      const auth = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      // Make the PUT request to update news
+      const response = await axios.put(
+        `http://localhost:3020/api/news/${id}`,
+        form,
+        auth
+      );
+
+      // Handle successful response
+      const data = response.data;
+      console.log(data);
+
+      // Show success toast
+      Swal.fire({
+        icon: 'success',
+        title: 'News updated successfully!',
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        toast: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+      //navigate the news feed page
+      router.push('/news');
+
+    } else {
+      console.error("User token not found.");
+    }
+  } catch (error) {
+    // Handle errors
+    console.error("Error updating news:", error);
+
+    // Show error toast
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Error updating news. Please try again later.',
+      confirmButtonText: 'OK'
+    });
+  }
+};
  //get news by id
  const getNews = () =>{
    axios.get(`http://localhost:3020/api/news/${id}`)
@@ -116,8 +142,14 @@ export default function page() {
    getNews();
  }, [quill, form]);
 
+ useEffect(() => {
+  if (quill && form.description) {
+    quill.root.innerHTML = form.description;
+  }
+}, [quill, form.description]);
+
  return (
-   <div className=" w-full md:px-10 lg:px-20">
+   <div className="py-20 w-full px-5 md:px-10 lg:px-36">
      <div className="w-full mb-3  ">
        <div><h3 className="text-2xl font-bold">Edit Publish a news article</h3></div>
        <div className="mb-2 block mt-5">
