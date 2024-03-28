@@ -17,6 +17,9 @@ export default function page() {
   const user = useSelector((state) => state.login.user);
   const { id } = useParams();
 
+  //get env
+  const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
+
   // Initialize form state
   const [form, setForm] = useState({
     title: "",
@@ -47,11 +50,7 @@ export default function page() {
         };
 
         // Make the PUT request to update news
-        const response = await axios.put(
-          `http://localhost:3020/api/news/${id}`,
-          form,
-          auth
-        );
+        const response = await axios.put(`${NEWS_API}${id}`, form, auth);
 
         // Handle successful response
         const data = response.data;
@@ -92,7 +91,7 @@ export default function page() {
   //get news by id
   const getNews = () => {
     axios
-      .get(`http://localhost:3020/api/news/${id}`)
+      .get(`${NEWS_API}${id}`)
       .then((res) => {
         setForm(res.data);
       })

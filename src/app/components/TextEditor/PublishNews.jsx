@@ -6,12 +6,16 @@ import "quill/dist/quill.snow.css";
 import { TextInput, Button, Label, Select } from "flowbite-react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function PublishNews() {
   // Retrieve user and token from Redux store
   const user = useSelector((state) => state.login.user);
   const token = useSelector((state) => state.login.token);
-
+  const router = useRouter();
+  //get env
+  const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
   // Initialize form state
   const [form, setForm] = useState({
     title: "",
@@ -27,38 +31,61 @@ export default function PublishNews() {
   };
 
   // Handle form submission
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Check if token exists
-      if (token) {
-        // Set the authorization header with the token
-        const auth = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
+const onSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Check if token exists
+    if (token) {
+      // Set the authorization header with the token
+      const auth = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-        // Make the POST request to publish news
-        const response = await axios.post(
-          `http://localhost:3020/api/news/`,
-          form,
-          auth
-        );
+      // Make the POST request to publish news
+      const response = await axios.post(`${NEWS_API}`, form, auth);
 
-        // Handle successful response
-        const data = response.data;
-        console.log(data);
-        alert("News published successfully!");
-      } else {
-        console.error("User token not found.");
-      }
-    } catch (error) {
-      // Handle errors
-      console.error("Error publishing news:", error);
-      alert("Error publishing news. Please try again later.");
+      // Handle successful response
+      const data = response.data;
+
+      // Show success toast
+      Swal.fire({
+        icon: "success",
+        title: "News published successfully!",
+        position: "top-end",
+        showConfirmButton: false,
+        timer:2000,
+        timerProgressBar: true,
+        toast: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      // Navigate to the news feed page after 3 seconds
+      setTimeout(() => {
+        router.push("/news");
+      }, 2000);
+
+    } else {
+      console.error("User token not found.");
     }
-  };
+  } catch (error) {
+    // Handle errors
+    console.error("Error publishing news:", error);
+
+    // Show error toast
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Error publishing news. Please try again later.",
+      confirmButtonText: "OK",
+    });
+  }
+};
+
 
   const modules = {
     toolbar: [

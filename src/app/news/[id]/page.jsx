@@ -8,6 +8,9 @@ import { HiOutlineArrowLeft, HiPencil, HiTrash } from "react-icons/hi";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 
+//get env
+const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
+
 export default function page() {
   const { id } = useParams();
   const [news, setNews] = useState({});
@@ -17,7 +20,7 @@ export default function page() {
 
   function fetchSingleNews() {
     axios
-      .get(`http://localhost:3020/api/news/${id}`)
+      .get(`${NEWS_API}${id}`)
       .then((res) => setNews(res.data))
       .catch((err) => console.error(err));
   }
@@ -92,7 +95,7 @@ const EditAndDelete = ({ newsId }) => {
 
             // Make the DELETE request to delete the news item
             axios
-              .delete(`http://localhost:3020/api/news/${id}`, auth)
+              .delete(`${NEWS_API}${id}`, auth)
               .then(() => {
                 // success
                 Swal.fire({

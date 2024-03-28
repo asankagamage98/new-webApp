@@ -11,9 +11,12 @@ import { Avatar } from "flowbite-react";
 export default function NewsCard() {
   const [news, setNews] = useState([]);
 
+//get env
+  const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
+
   const fetchNews = () => {
     axios
-      .get(`http://localhost:3020/api/news/`)
+      .get(`${NEWS_API}`)
       .then((res) => {
         setNews(res.data);
       })
@@ -69,6 +72,7 @@ const SingleNewsCard = ({ news }) => {
     moment.duration(moment().diff(moment(date))).asDays() < 1
       ? moment.duration(moment().diff(moment(date))).humanize()
       : moment(date).format("MMM DD, YYYY");
+
   return (
     <div
       class="bg-white hover:bg-slate-100 duration-75 border-b p-4 mb-4 cursor-pointer"
