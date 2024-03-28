@@ -8,61 +8,57 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 export default function PublishNews() {
-    // Retrieve user and token from Redux store
-    const user = useSelector((state) => state.login.user);
-    const token = useSelector((state) => state.login.token);
-  
-    // Initialize form state
-    const [form, setForm] = useState({
-      title: "",
-      description: "",
-      category: "politics",
-      author: user ? user.name : "",
-    });
-   
-    // Handle form input changes
-    const handleFormChanges = (e) => {
-      e.preventDefault();
-      setForm({ ...form, [e.target.name]: e.target.value });
-    };
-  
-    // Handle form submission
-    const onSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        // Check if token exists
-        if (token) {
-          // Set the authorization header with the token
-          const auth = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          };
-  
-          // Make the POST request to publish news
-          const response = await axios.post(
-            `http://localhost:3020/api/news/`,
-            form,
-            auth
-          );
-  
-          // Handle successful response
-          const data = response.data;
-          console.log(data);
-          alert("News published successfully!");
-        } else {
-          console.error("User token not found.");
-         
-        }
-      } catch (error) {
-        // Handle errors
-        console.error("Error publishing news:", error);
-        alert("Error publishing news. Please try again later.");
+  // Retrieve user and token from Redux store
+  const user = useSelector((state) => state.login.user);
+  const token = useSelector((state) => state.login.token);
+
+  // Initialize form state
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    category: "politics",
+    author: user ? user.name : "",
+  });
+
+  // Handle form input changes
+  const handleFormChanges = (e) => {
+    e.preventDefault();
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submission
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Check if token exists
+      if (token) {
+        // Set the authorization header with the token
+        const auth = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        // Make the POST request to publish news
+        const response = await axios.post(
+          `http://localhost:3020/api/news/`,
+          form,
+          auth
+        );
+
+        // Handle successful response
+        const data = response.data;
+        console.log(data);
+        alert("News published successfully!");
+      } else {
+        console.error("User token not found.");
       }
-    };
-  
-  
-  
+    } catch (error) {
+      // Handle errors
+      console.error("Error publishing news:", error);
+      alert("Error publishing news. Please try again later.");
+    }
+  };
 
   const modules = {
     toolbar: [
@@ -107,8 +103,10 @@ export default function PublishNews() {
 
   return (
     <>
-      <div className="w-full mb-3 ">
-        <div><h3 className="text-2xl font-bold">Publish a news article</h3></div>
+      <div className="w-full mb-3 mt-3">
+        <div>
+          <h3 className="text-2xl font-bold">Publish a news article</h3>
+        </div>
         <div className="mb-2 block mt-5">
           <Label htmlFor="category" value="Select articale category" />
         </div>
@@ -138,8 +136,8 @@ export default function PublishNews() {
         />
       </div>
       <div className="mb-2 block">
-          <Label htmlFor="small" className="" value="Content" />
-     
+        <Label htmlFor="small" className="" value="Content" />
+
         <div className="w-full mt-2">
           <div ref={quillRef} style={{ height: 300 }} className="mb-5" />
         </div>

@@ -9,8 +9,6 @@ import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 
 export default function page() {
-
-  
   const { id } = useParams();
   const [news, setNews] = useState({});
   const [date, setDate] = useState();
@@ -64,15 +62,13 @@ export default function page() {
 }
 
 const EditAndDelete = ({ newsId }) => {
-
   const token = useSelector((state) => state.login.token);
   const router = useRouter();
 
-
   const remove = (e) => {
-     // Get the newsId from props
+    // Get the newsId from props
     const id = newsId;
-    
+
     // confirmation dialog
     Swal.fire({
       title: "Are you sure?",

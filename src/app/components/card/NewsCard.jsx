@@ -4,17 +4,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import renderHTML from "react-render-html";
-import NewsModel from "../model/NewsModel";
 import { useRouter } from "next/navigation";
 import striptags from "striptags";
 import { Avatar } from "flowbite-react";
 
 export default function NewsCard() {
   const [news, setNews] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
-  const [data, setData] = useState();
-
-  const router = useRouter();
 
   const fetchNews = () => {
     axios
@@ -31,11 +26,6 @@ export default function NewsCard() {
     fetchNews();
   }, []);
 
-  // click on card handler
-  const handleCardClick = (item) => {
-    setData(item);
-  };
-
   return (
     <>
       <div class="container mx-auto px-2 pt-8">
@@ -46,17 +36,6 @@ export default function NewsCard() {
             news.map((news, index) => (
               <SingleNewsCard news={news} key={index} />
             ))}
-
-          {/* Main modal */}
-
-          {openModal && (
-            <NewsModel
-              data={data}
-              setOpenModal={setOpenModal}
-              openModal={openModal}
-              fetchNews={fetchNews}
-            />
-          )}
         </div>
       </div>
     </>
