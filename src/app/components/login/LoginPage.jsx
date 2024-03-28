@@ -33,13 +33,12 @@ const submit = async (e) => {
   e.preventDefault();
   try {
     const res = await axios.post('http://localhost:3020/api/user/login', login);
-    const { user, token } = res.data; // Assuming response contains user data and token
+    const { user, token } = res.data; 
     dispatch(setUser({ user, token }));
-    console.log('Login successful:',setUser);
-    router.push('/');
+    router.push('/news');
   } catch (error) {
     alert('Error!');
-    console.error(error); // Log the error
+    console.error(error); 
   }
 };
 

@@ -7,10 +7,12 @@ import { Modal,Button } from 'flowbite-react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 export default function NewsModel({ data , setOpenModal, openModal, fetchNews }) {
 
  const token = useSelector((state) => state.login.token);
+ const router =useRouter();
  
  console.log(data);
  // remove a note by id
@@ -69,10 +71,10 @@ const remove = (e, id) => {
   };
   
 
-// navigate to edit screen
-// const onClickUpdate = (e, id) => {
-//     router.push(`/news/${id}/edit`)
-// }
+//navigate to edit screen
+const onClickUpdate = (e, id) => {
+    router.push(`/news/${id}/edit`)
+}
   return (
     <>
     <Modal show={openModal} className="" onClose={() => setOpenModal(false)}>
@@ -88,7 +90,7 @@ const remove = (e, id) => {
             </div>
         </Modal.Body>
         <Modal.Footer className=" gap-3 flex justify-end">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3"  onClick={(e) => onClickUpdate(e, data._id)}>
               
                 <Button  className="w-full" onClick={(e) => remove(e, data._id)} gradientMonochrome="failure">Detete</Button>
                 <Button   className="w-full" gradientMonochrome="success" >Edit</Button>

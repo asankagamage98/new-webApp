@@ -14,7 +14,7 @@ export default function ConditionalLayout({ children }) {
     
     useEffect(() => {
         if (!user) {
-            router.push('/auth');
+            //router.push('/auth');
         }
       }, [user, router]); 
     

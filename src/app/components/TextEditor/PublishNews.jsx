@@ -7,7 +7,7 @@ import { TextInput, Button, Label, Select } from "flowbite-react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-export default function NewsForm() {
+export default function PublishNews() {
     // Retrieve user and token from Redux store
     const user = useSelector((state) => state.login.user);
     const token = useSelector((state) => state.login.token);
@@ -16,7 +16,7 @@ export default function NewsForm() {
     const [form, setForm] = useState({
       title: "",
       description: "",
-      category: "",
+      category: "politics",
       author: user ? user.name : "",
     });
    
