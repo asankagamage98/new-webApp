@@ -11,15 +11,15 @@
 
 
 ## project-overview
-NEWS WEBAPP: Next.js & Tailwind CSS power secure admin dashboards for article management. Node.js (Express.js) backend with MongoDB. Mobile-responsive, with CRUD operations and image upload. Ensures normalized data. Repo & live demo available.
+NEWS WEBAPP: Next.js & Tailwind CSS power secure admin dashboards for article(news) management. Admin can mangage the news he can edit,delete,add news from admin dashbord.Non-registered users can views articale.Node.js (Express.js) backend with MongoDB. Mobile-responsive, with CRUD operations. Ensures normalized data. Repo & live demo available.
 
 ## Demo
 Check out the live demo
-[here](https://news-web-app-bice.vercel.app/).
+[here](https://news-management-backend.vercel.app/).
 
 Domains
-[here](https://news-web-app-git-main-asankagamage98s-projects.vercel.app/).
-[here](https://news-web-3bbhfeee5-asankagamage98s-projects.vercel.app/).
+[here](news-management-backend.vercel.app).
+
 
 
 
