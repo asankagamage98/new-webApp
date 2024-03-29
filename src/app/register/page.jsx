@@ -17,7 +17,7 @@ function page() {
     e.preventDefault();
     router.push("/auth");
   };
-  // ----------------------------------
+  
   const [form, setForm] = useState({
     name: "",
     email: "",
