@@ -52,13 +52,13 @@ export default function NavBar() {
         <Navbar.Brand href="/">
           <Logo height={40} />
           {/* <img
-          src="/news.svg"
-          onClick={(e) => router.push("/news")}
+          src="/.svg"
+          onClick={(e) => router.push("/")}
           className="mr-3 h-6 sm:h-9"
           alt="Flowbite React Logo"
         />
         <span
-          onClick={(e) => router.push("/news")}
+          onClick={(e) => router.push("/")}
           className="self-center whitespace-nowrap text-xl font-semibold "
         >
           TOP NEWS
@@ -99,13 +99,13 @@ export default function NavBar() {
           {/* <Navbar.Toggle/> */}
         </div>
         <Navbar.Collapse className="flex item-end">
-          <Navbar.Link href="#" onClick={(e) => router.push("/news")}>
+          <Navbar.Link href="#" onClick={(e) => router.push("/")}>
             <span className="rounded-full text-white  bg-black  py-2 px-5 hover:bg-zinc-900 duration-75">
               Latest
             </span>
           </Navbar.Link>
           {user && (
-            <Navbar.Link href="#" onClick={(e) => router.push("/news/create")}>
+            <Navbar.Link href="#" onClick={(e) => router.push("/create")}>
               <span className="rounded-full text-white bg-black py-2 px-5 hover:bg-zinc-900 duration-75">
                 Publish
               </span>

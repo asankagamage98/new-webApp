@@ -70,7 +70,7 @@ export default function page() {
           },
         });
         //navigate the news feed page
-        router.push("/news");
+        router.push("/");
       } else {
         console.error("User token not found.");
       }

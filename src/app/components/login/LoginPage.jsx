@@ -53,7 +53,7 @@ function LoginPage() {
         },
       }).then(() => {
         // Redirect to news page after the user clicks "OK" on the success toast
-        router.push("/news");
+        router.push("/");
       });
     } catch (error) {
       console.error(error);

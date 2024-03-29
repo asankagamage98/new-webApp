@@ -106,7 +106,7 @@ const EditAndDelete = ({ newsId }) => {
                   text: "Your file has been deleted.",
                   icon: "success",
                 });
-                router.push("/news");
+                router.push("/");
               })
               .catch((err) => {
                 // error
@@ -130,7 +130,7 @@ const EditAndDelete = ({ newsId }) => {
       <Button
         color="gray"
         size="xs"
-        onClick={(e) => router.push(`/news/${newsId}/edit`)}
+        onClick={(e) => router.push(`/${newsId}/edit`)}
       >
         <HiPencil className="h-6 w-6" />
       </Button>

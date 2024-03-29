@@ -68,7 +68,7 @@ export default function PublishNews() {
 
         // Navigate to the news feed page after 3 seconds
         setTimeout(() => {
-          router.push("/news");
+          router.push("/");
         }, 2000);
       } else {
         console.error("User token not found.");

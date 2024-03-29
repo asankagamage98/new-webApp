@@ -1,5 +1,5 @@
 import React from "react";
-import NewsCard from "../components/card/NewsCard";
+import NewsCard from "./components/card/NewsCard";
 
 export default function page() {
   return (

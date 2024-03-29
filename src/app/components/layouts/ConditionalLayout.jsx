@@ -15,8 +15,8 @@ export default function ConditionalLayout({ children }) {
   const router = useRouter();
   // Redirect to authentication page if user is not logged in
   useEffect(() => {
-    if (!user) {
-     router.push("/");
+    if (!user && (pathname == "/create" || pathname.endsWith("/edit"))) {
+     router.push("/auth");
     }
   }, [user, router, pathname]);
 

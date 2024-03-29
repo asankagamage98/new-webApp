@@ -76,7 +76,7 @@ const SingleNewsCard = ({ news }) => {
   return (
     <div
       class="bg-white hover:bg-slate-100 duration-75 border-b p-4 mb-4 cursor-pointer"
-      onClick={() => router.push(`/news/${news?._id}`)}
+      onClick={() => router.push(`/${news?._id}`)}
     >
       <div class="flex items-center mb-4 ">
         <Avatar placeholderInitials={getAvatarLetters(news?.author)} rounded />
@@ -96,7 +96,7 @@ const SingleNewsCard = ({ news }) => {
         <a
           href="#"
           class="text-blue-500 text-sm font-semibold"
-          onClick={() => router.push(`/news/${news?._id}`)}
+          onClick={() => router.push(`/${news?._id}`)}
         >
           Read More
         </a>

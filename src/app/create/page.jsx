@@ -1,6 +1,6 @@
 "use client";
 
-import PublishNews from "../../components/TextEditor/PublishNews";
+import PublishNews from "../components/TextEditor/PublishNews";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { Button } from "flowbite-react";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,7 @@ export default function page() {
           gradientDuoTone="purpleToBlue"
           outline
           pill
-          onClick={(e) => router.push("/news")}
+          onClick={(e) => router.push("/")}
         >
           <HiOutlineArrowLeft className="h-6 w-6" />
         </Button>
