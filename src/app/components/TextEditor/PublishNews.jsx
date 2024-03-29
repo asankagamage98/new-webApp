@@ -15,7 +15,6 @@ export default function PublishNews() {
   const token = useSelector((state) => state.login.token);
   const router = useRouter();
 
-  
   //get env
   const NEWS_API = process.env.NEXT_PUBLIC_NEWS_API;
   // Initialize form state
@@ -89,7 +88,7 @@ export default function PublishNews() {
 
   const modules = {
     toolbar: [
-      ["bold", "italic", "underline", "strike",'image'],
+      ["bold", "italic", "underline", "strike", "image"],
       [{ align: [] }],
 
       [{ list: "ordered" }, { list: "bullet" }],
@@ -174,7 +173,8 @@ export default function PublishNews() {
           type="submit"
           onClick={onSubmit}
           className="w-[200px] mt-5"
-          color="dark" pill
+          color="dark"
+          pill
         >
           Publish
         </Button>

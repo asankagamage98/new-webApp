@@ -105,12 +105,7 @@ function LoginPage() {
         </div>
 
         <div className="w-full text-center mt-5">
-          <Button
-            onClick={registerbtn}
-            className="w-full"
-            color="light"
-            pill
-          >
+          <Button onClick={registerbtn} className="w-full" color="light" pill>
             Register
           </Button>
         </div>

@@ -114,22 +114,13 @@ function page() {
           />
         </div>
         <div className="w-full mt-5 ">
-          <Button
-            type="submit"
-            className="w-full"
-            color="dark" pill
-          >
+          <Button type="submit" className="w-full" color="dark" pill>
             Register
           </Button>
         </div>
 
         <div className="w-full text-center mt-5">
-          <Button
-            type=""
-            onClick={login}
-            className="w-full"
-            color="light" pill
-          >
+          <Button type="" onClick={login} className="w-full" color="light" pill>
             Sign In
           </Button>
         </div>

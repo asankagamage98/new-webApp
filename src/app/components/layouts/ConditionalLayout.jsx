@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const { usePathname, useRouter } = require("next/navigation");
 
 export default function ConditionalLayout({ children }) {
-  // Get the current pathname using 'usePathname' hook
+  // Get the current
   const pathname = usePathname();
   // Get the user data from Redux store
   const user = useSelector((state) => state.login.user);
@@ -16,7 +16,7 @@ export default function ConditionalLayout({ children }) {
   // Redirect to authentication page if user is not logged in
   useEffect(() => {
     if (!user && (pathname == "/create" || pathname.endsWith("/edit"))) {
-     router.push("/auth");
+      router.push("/auth");
     }
   }, [user, router, pathname]);
 
