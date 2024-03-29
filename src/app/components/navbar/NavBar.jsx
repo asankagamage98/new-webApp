@@ -51,18 +51,6 @@ export default function NavBar() {
       >
         <Navbar.Brand href="/">
           <Logo height={40} />
-          {/* <img
-          src="/.svg"
-          onClick={(e) => router.push("/")}
-          className="mr-3 h-6 sm:h-9"
-          alt="Flowbite React Logo"
-        />
-        <span
-          onClick={(e) => router.push("/")}
-          className="self-center whitespace-nowrap text-xl font-semibold "
-        >
-          TOP NEWS
-        </span> */}
         </Navbar.Brand>
 
         <div className="flex md:order-2">
