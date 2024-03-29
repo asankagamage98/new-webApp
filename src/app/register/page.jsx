@@ -13,7 +13,8 @@ function page() {
   //get env
   const USER_API = process.env.NEXT_PUBLIC_USER_API;
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault();
     router.push("/auth");
   };
   // ----------------------------------
@@ -116,7 +117,7 @@ function page() {
           <Button
             type="submit"
             className="w-full"
-            gradientDuoTone="purpleToBlue"
+            color="dark" pill
           >
             Register
           </Button>
@@ -127,9 +128,9 @@ function page() {
             type=""
             onClick={login}
             className="w-full"
-            gradientMonochrome="success"
+            color="light" pill
           >
-            Login
+            Sign In
           </Button>
         </div>
       </form>

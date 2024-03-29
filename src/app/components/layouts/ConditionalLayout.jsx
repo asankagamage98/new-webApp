@@ -16,9 +16,9 @@ export default function ConditionalLayout({ children }) {
   // Redirect to authentication page if user is not logged in
   useEffect(() => {
     if (!user) {
-      router.push("/auth");
+     router.push("/");
     }
-  }, [user, router]);
+  }, [user, router, pathname]);
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function ConditionalLayout({ children }) {
           <div className="flex flex-col w-full m-0">
             <NavBar />
           </div>
-          <div className="bg-white flex max-w-screen h-auto justify-between w-full">
+          <div className="bg-white flex max-w-screen h-auto justify-between w-full mt-20">
             <div className="bg-white w-full pt-2">{children}</div>
           </div>
         </div>

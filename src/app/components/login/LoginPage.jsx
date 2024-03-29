@@ -61,7 +61,7 @@ function LoginPage() {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error updating news. Please try again later.",
+        text: "Error loging. Please try again later.",
         confirmButtonText: "OK",
       });
     }
@@ -99,8 +99,8 @@ function LoginPage() {
           />
         </div>
         <div className="w-full mt-5 ">
-          <Button type="submit" className="w-full" gradientMonochrome="success">
-            Login
+          <Button type="submit" className="w-full" color="dark" pill>
+            Sign In
           </Button>
         </div>
 
@@ -108,7 +108,8 @@ function LoginPage() {
           <Button
             onClick={registerbtn}
             className="w-full"
-            gradientDuoTone="purpleToBlue"
+            color="light"
+            pill
           >
             Register
           </Button>

@@ -16,7 +16,8 @@ export default function page() {
   const { id } = useParams();
   const [news, setNews] = useState({});
   const [date, setDate] = useState();
-
+  //get user
+  const user = useSelector((state) => state.login.user);
   const router = useRouter();
   // fetch single news item
   function fetchSingleNews() {
@@ -54,7 +55,7 @@ export default function page() {
       </p>
       <p className="text-gray-500 text-sm">{date}</p>
 
-      <EditAndDelete newsId={news?._id} />
+      {user && <EditAndDelete newsId={news?._id} />}
       <div className="w-full border-b my-10"></div>
 
       <div dangerouslySetInnerHTML={{ __html: news?.description }}></div>

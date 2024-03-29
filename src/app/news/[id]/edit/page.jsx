@@ -101,7 +101,7 @@ export default function page() {
   // Define Quill modules
   const modules = {
     toolbar: [
-      ["bold", "italic", "underline", "strike"],
+      ["bold", "italic", "underline", "strike",'image'],
       [{ align: [] }],
 
       [{ list: "ordered" }, { list: "bullet" }],
@@ -205,7 +205,7 @@ export default function page() {
           type="submit"
           onClick={onSubmit}
           className="w-[200px] mt-5"
-          gradientMonochrome="success"
+          color="dark" pill
         >
           Update
         </Button>
