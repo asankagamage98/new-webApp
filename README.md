@@ -15,10 +15,11 @@ NEWS WEBAPP: Next.js & Tailwind CSS power secure admin dashboards for article(ne
 
 ## Demo
 Check out the live demo
-[here](https://news-management-backend.vercel.app/).
+[here](https://news-web-app-bice.vercel.app/).
 
 Domains
-[here](news-management-backend.vercel.app).
+[here](https://news-web-app-git-main-asankagamage98s-projects.vercel.app/).
+[here](https://news-web-8kjijy4y1-asankagamage98s-projects.vercel.app/).
 
 
 
